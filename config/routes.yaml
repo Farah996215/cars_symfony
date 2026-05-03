@@ -1,0 +1,11 @@
+# config/routes.yaml
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+# This ensures other routes are loaded
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute

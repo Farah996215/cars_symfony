@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up - Car Configurator{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-card glassmorphism">
+        <div class="auth-header">
+            <h1 class="neon-text">Join the Future</h1>
+            <p class="subtitle">Create your account to start configuring</p>
+        </div>
+
+        {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+            
+            <div class="form-group">
+                {{ form_label(registrationForm.name, 'Full Name') }}
+                {{ form_widget(registrationForm.name) }}
+                {{ form_errors(registrationForm.name) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.email, 'Email') }}
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, 'Password') }}
+                {{ form_widget(registrationForm.plainPassword) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="form-group checkbox-group">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button class="btn-neon" type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Sign Up
+            </button>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="{{ path('app_login') }}">Sign In</a></p>
+            </div>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}

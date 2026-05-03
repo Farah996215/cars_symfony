@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NEO Drive - Car Catalog{% endblock %}
+
+{% block body %}
+<div class="catalog-container">
+    <div class="catalog-header">
+        <h1 class="neon-text"><i class="fas fa-robot"></i> Our Cyber Fleet</h1>
+        <p class="subtitle">Select your machine and begin the transformation</p>
+    </div>
+
+    <div class="cars-grid">
+        {% for car in cars %}
+            <div class="car-card glassmorphism" style="animation: fadeInUp 0.6s ease; animation-delay: {{ loop.index * 0.1 }}s;">
+                <div class="car-image">
+                    {% if car.image %}
+                        <img src="{{ asset('uploads/cars/' ~ car.image) }}" 
+                             alt="{{ car.brand }} {{ car.model }}"
+                             class="car-img"
+                             onerror="this.src='https://via.placeholder.com/400x300?text=' + this.alt">
+                    {% else %}
+                        <div class="image-placeholder">
+                            <i class="fas fa-car-side car-icon"></i>
+                        </div>
+                    {% endif %}
+                    <div class="car-overlay">
+                        <i class="fas fa-microchip"></i> AI Ready
+                    </div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-brand">{{ car.brand }}</h3>
+                    <h2 class="car-model">{{ car.model }}</h2>
+                    <div class="car-price">
+                        <span class="price-label">Starting from</span>
+                        <span class="price-value">{{ car.formattedPrice }}</span>
+                    </div>
+                    <a href="{{ path('app_car_configurator', {'id': car.id}) }}" class="btn-configure">
+                        <i class="fas fa-sliders-h"></i> Configure
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="no-cars glassmorphism">
+                <i class="fas fa-database fa-3x"></i>
+                <p>No cars available in the catalog at the moment.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

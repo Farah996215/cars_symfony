@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign In - Car Configurator{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-card glassmorphism">
+        <div class="auth-header">
+            <h1 class="neon-text">Welcome Back</h1>
+            <p class="subtitle">Sign in to configure your dream car</p>
+        </div>
+
+        <form method="post" class="auth-form">
+            {% if error %}
+                <div class="alert alert-error">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {% if app.flashes('success') %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {# Important: These field names must match exactly #}
+            <div class="form-group">
+                <label for="username">Email</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" 
+                       class="form-input" placeholder="you@example.com" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="_password" id="password" 
+                       class="form-input" placeholder="••••••••" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            
+            {# Optional: Remember me checkbox #}
+            <div class="form-group checkbox-group">
+                <input type="checkbox" name="_remember_me" id="remember_me">
+                <label for="remember_me">Remember me</label>
+            </div>
+
+            <button class="btn-neon" type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Sign In
+            </button>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="{{ path('app_register') }}">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
