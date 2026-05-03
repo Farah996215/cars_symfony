@@ -1591,25 +1591,215 @@
         max-height: 80%;
     }
 }
+/* Theme Toggle Button */
+.theme-toggle {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #00ff88;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: rotate(15deg);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+/* Light Theme Variables */
+body.light-theme {
+    background: radial-gradient(circle at 20% 50%, #f0f0f0 0%, #e0e0e0 50%, #ffffff 100%);
+    color: #1a1a2e;
+}
+
+body.light-theme .glassmorphism {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .navbar {
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .nav-links a {
+    color: #1a1a2e;
+}
+
+body.light-theme .nav-links a:hover {
+    color: #00cc66;
+}
+
+body.light-theme .glassmorphism:hover {
+    border-color: rgba(0, 204, 102, 0.4);
+}
+
+body.light-theme .neon-text {
+    background: linear-gradient(135deg, #00cc66, #0099cc);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.light-theme .subtitle,
+body.light-theme .price-label,
+body.light-theme .detail-label,
+body.light-theme .selected-option {
+    color: #666;
+}
+
+body.light-theme .car-brand,
+body.light-theme .config-car-name {
+    color: #00cc66;
+}
+
+body.light-theme .price-value,
+body.light-theme .detail-value.price {
+    color: #00cc66;
+}
+
+body.light-theme .btn-neon-small,
+body.light-theme .btn-configure,
+body.light-theme .btn-save-config {
+    background: linear-gradient(135deg, #00cc66, #0099cc);
+    color: #fff;
+}
+
+body.light-theme .btn-neon {
+    color: #00cc66;
+}
+
+body.light-theme .btn-neon:hover {
+    background: #00cc66;
+    color: #fff;
+}
+
+body.light-theme .form-input,
+body.light-theme .form-group input:not([type="checkbox"]) {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 204, 102, 0.3);
+    color: #1a1a2e;
+}
+
+body.light-theme .form-input:focus {
+    border-color: #00cc66;
+}
+
+body.light-theme .alert-success {
+    background: rgba(0, 204, 102, 0.1);
+    color: #008844;
+}
+
+body.light-theme .alert-error {
+    background: rgba(255, 51, 102, 0.1);
+    color: #cc0033;
+}
+
+body.light-theme .config-status.status-pending {
+    background: rgba(255, 193, 7, 0.15);
+    color: #cc9900;
+}
+
+body.light-theme .config-status.status-confirmed {
+    background: rgba(0, 191, 255, 0.15);
+    color: #0088cc;
+}
+
+body.light-theme .config-status.status-completed {
+    background: rgba(0, 204, 102, 0.15);
+    color: #008844;
+}
+
+body.light-theme .btn-action {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .stat-number {
+    color: #00cc66;
+}
+
+body.light-theme .feature-card p,
+body.light-theme .hero-subtitle {
+    color: #555;
+}
+
+body.light-theme .car-card {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.light-theme .car-model {
+    color: #1a1a2e;
+}
+
+body.light-theme .package-option,
+body.light-theme .interior-option {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .package-option.active,
+body.light-theme .interior-option.active {
+    background: rgba(0, 204, 102, 0.1);
+    border-color: #00cc66;
+}
+
+body.light-theme .package-price,
+body.light-theme .interior-price {
+    color: #00cc66;
+}
+
+body.light-theme .price-row {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .price-row.total {
+    border-top-color: #00cc66;
+}
+
+body.light-theme .btn-control {
+    background: rgba(0, 204, 102, 0.1);
+    color: #00cc66;
+}
+
+body.light-theme .btn-control:hover {
+    background: rgba(0, 204, 102, 0.2);
+}
+
+body.light-theme .viewer-note {
+    color: #888;
+}
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="{{ path('app_home') }}" class="logo">
-            <i class="fas fa-car"></i> NEO DRIVE
-        </a>
-        <div class="nav-links">
-            <a href="{{ path('app_home') }}"><i class="fas fa-home"></i> Home</a>
-            <a href="{{ path('app_car_catalog') }}"><i class="fas fa-search"></i> Explore</a>
-            {% if app.user %}
-                <a href="{{ path('app_dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            {% else %}
-                <a href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i> Sign In</a>
-                <a href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i> Sign Up</a>
-            {% endif %}
-        </div>
-    </nav>
+  <nav class="navbar">
+    <a href="{{ path('app_home') }}" class="logo">
+        <i class="fas fa-car"></i> NEO DRIVE
+    </a>
+    <div class="nav-links">
+        <a href="{{ path('app_home') }}"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ path('app_car_catalog') }}"><i class="fas fa-search"></i> Explore</a>
+        
+        <!-- Theme Toggle Button -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        {% if app.user %}
+            <a href="{{ path('app_dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+            <a href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+            <a href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i> Sign Up</a>
+        {% endif %}
+    </div>
+</nav>
 
     <!-- Floating Flash Messages -->
     {% for label, messages in app.flashes %}
@@ -1651,5 +1841,60 @@
             });
         });
     </script>
+    <script>
+    // Theme Toggle Functionality
+    (function() {
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            updateThemeIcon('light');
+        } else if (savedTheme === 'dark') {
+            document.body.classList.remove('light-theme');
+            updateThemeIcon('dark');
+        } else if (prefersDark) {
+            document.body.classList.remove('light-theme');
+            updateThemeIcon('dark');
+        } else {
+            document.body.classList.add('light-theme');
+            updateThemeIcon('light');
+        }
+        
+        // Function to update the toggle icon
+        function updateThemeIcon(theme) {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (toggleBtn) {
+                if (theme === 'light') {
+                    toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                    toggleBtn.style.color = '#ffaa00';
+                } else {
+                    toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                    toggleBtn.style.color = '#00ff88';
+                }
+            }
+        }
+        
+        // Toggle theme on button click
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                if (document.body.classList.contains('light-theme')) {
+                    // Switch to dark
+                    document.body.classList.remove('light-theme');
+                    localStorage.setItem('theme', 'dark');
+                    updateThemeIcon('dark');
+                } else {
+                    // Switch to light
+                    document.body.classList.add('light-theme');
+                    localStorage.setItem('theme', 'light');
+                    updateThemeIcon('light');
+                }
+            });
+        }
+    })();
+</script>
 </body>
 </html>
