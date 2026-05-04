@@ -35,8 +35,11 @@ security:
                 path: /
     
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/verify, roles: PUBLIC_ACCESS }
         - { path: ^/dashboard, roles: ROLE_USER }
-        - { path: ^/, roles: PUBLIC_ACCESS }
+        - { path: ^/configure, roles: ROLE_USER }
+        - { path: ^/cars, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: PUBLIC_ACCESS }        

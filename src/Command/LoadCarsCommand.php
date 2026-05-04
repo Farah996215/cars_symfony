@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class LoadCarsCommand extends Command
 {
     protected static $defaultName = 'app:load-cars';
+    protected static $defaultDescription = 'Loads car data into the database';
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)

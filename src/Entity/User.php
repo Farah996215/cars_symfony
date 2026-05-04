@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use SymfonyCasts\Bundle\VerifyEmail\Model\VerifyEmailSignatureInterface;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
 #[ORM\Table(name: '`user`')]
@@ -34,6 +35,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Configuration::class, cascade: ['remove'])]
+    private Collection $configurations;
+
+    public function __construct()
+    {
+        $this->configurations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,5 +114,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->isVerified = $isVerified;
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Configuration>
+     */
+    public function getConfigurations(): Collection
+    {
+        return $this->configurations;
+    }
+
+    public function addConfiguration(Configuration $configuration): static
+    {
+        if (!$this->configurations->contains($configuration)) {
+            $this->configurations->add($configuration);
+            $configuration->setUser($this);
+        }
+        return $this;
+    }
+
+    public function removeConfiguration(Configuration $configuration): static
+    {
+        if ($this->configurations->removeElement($configuration)) {
+            if ($configuration->getUser() === $this) {
+                $configuration->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+    public function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
     }
 }

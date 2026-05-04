@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Users - Admin{% endblock %}
+
+{% block body %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="neon-text"><i class="fas fa-users"></i> Manage Users</h1>
+        <p>View and manage all registered users</p>
+    </div>
+    
+    <div class="admin-section glassmorphism">
+        <div class="admin-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Verified</th>
+                        <th>Role</th>
+                        <th>Configurations</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{% if user.isVerified %}<i class="fas fa-check-circle" style="color: #00ff88;"></i> Verified{% else %}<i class="fas fa-times-circle" style="color: #ff3366;"></i> Unverified{% endif %}</td>
+                            <td>{% if 'ROLE_ADMIN' in user.roles %}<span class="badge-admin"><i class="fas fa-crown"></i> Admin</span>{% else %}<span class="badge-user">User</span>{% endif %}</td>
+                            <td>{{ user.configurations|length }}</td>
+                            <td>
+                                <form method="POST" action="{{ path('app_admin_toggle_admin', {'id': user.id}) }}" style="display: inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('admin' ~ user.id) }}">
+                                    <button type="submit" class="btn-action {% if 'ROLE_ADMIN' in user.roles %}btn-remove-admin{% else %}btn-make-admin{% endif %}">
+                                        {% if 'ROLE_ADMIN' in user.roles %}
+                                            <i class="fas fa-user"></i> Remove Admin
+                                        {% else %}
+                                            <i class="fas fa-crown"></i> Make Admin
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">No users found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="admin-actions">
+        <a href="{{ path('app_admin_dashboard') }}" class="btn-admin-primary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<style>
+    .badge-admin {
+        background: rgba(255, 215, 0, 0.2);
+        color: #ffd700;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+    }
+    
+    .badge-user {
+        background: rgba(0, 255, 136, 0.2);
+        color: #00ff88;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-make-admin {
+        background: rgba(255, 215, 0, 0.2);
+        border: 1px solid #ffd700;
+        color: #ffd700;
+    }
+    
+    .btn-remove-admin {
+        background: rgba(255, 51, 102, 0.2);
+        border: 1px solid #ff3366;
+        color: #ff3366;
+    }
+    
+    .btn-action {
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

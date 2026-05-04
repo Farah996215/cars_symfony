@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Configurations - Admin{% endblock %}
+
+{% block body %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="neon-text"><i class="fas fa-chart-line"></i> All Configurations</h1>
+        <p>View all user car configurations</p>
+    </div>
+    
+    <div class="admin-section glassmorphism">
+        <div class="admin-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Car</th>
+                        <th>Color</th>
+                        <th>Package</th>
+                        <th>Interior</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for config in configurations %}
+                        <tr>
+                            <td>{{ config.id }}</td>
+                            <td>{{ config.user.name }}</td>
+                            <td>{{ config.car.brand }} {{ config.car.model }}</td>
+                            <td>{{ config.color }}</td>
+                            <td>{{ config.designPackage }}</td>
+                            <td>{{ config.interior }}</td>
+                            <td>{{ config.formattedTotalPrice }}</td>
+                            <td><span class="status-badge status-{{ config.status|lower }}">{{ config.status }}</span></td>
+                            <td>{{ config.createdAt|date('Y-m-d H:i') }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">No configurations found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="admin-actions">
+        <a href="{{ path('app_admin_dashboard') }}" class="btn-admin-primary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}
